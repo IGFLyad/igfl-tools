@@ -2,3 +2,6 @@ urllib3
 django
 gunicorn
 django-heroku
+dash
+dash-core-components
+dash-html-components
