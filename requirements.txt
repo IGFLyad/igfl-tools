@@ -5,3 +5,4 @@ django-heroku
 dash
 dash-core-components
 dash-html-components
+dash-daq
