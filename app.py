@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 import dash
 import dash_core_components as dcc
 import dash_html_components as html
@@ -26,13 +27,16 @@ app.layout = html.Div(children=[
 
 	html.Div(children=[
         html.Label('Select if a header is present in your files or not'),
-        daq.ToggleSwitch(
-            id='id_switch_header',
-            label=['Header', 'No Header'],
-            style={'width': '250px', 'margin': 'auto'}, 
-            value=False
-        ),
 
+        dcc.RadioItems(
+            id='id_switch_header',
+            options=[
+                {'label': 'Header', 'value': "Header"},
+                {'label': 'No Header', 'value': "No_Header"},
+            ],
+            value="Header",
+            labelStyle={'display': 'inline-block'}
+        ), 
         html.Hr(),
         html.Label('Select first file'),
         dcc.Upload(
@@ -129,8 +133,14 @@ def read_header2(contents,filename):
             State('upload-f2',"filename"),
             State('upload-f2',"contents"),
             State('upload-f2-res',"value")])
-def getRes(n_clicks,header, filename1,content1,col1, filename2,content2,col2):
+def getRes(n_clicks,header_val, filename1,content1,col1, filename2,content2,col2):
     if col1 is not None and col2 is not None:
+        
+        if header_val == "Header":
+            header = False
+        else:
+            header = True
+        print(header_val, header)
         #print n_clicks, header, col1, col2
         dico1, h1 = createDicoColumn(content1,int(col1),header)
         #print n_clicks, header, col1, col2
